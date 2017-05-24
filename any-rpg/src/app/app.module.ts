@@ -1,20 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
 
-import { AppComponent } from './app.component';
+// Load the root stuff
+import { AppComponent } from './app.component'
+import { AppRoutingModule } from './app-routing.module'
 
+// load modules
+import { HomeModule } from './modules/home/module'
+import { TestModule } from './modules/test/module'
+export const modules = [
+	HomeModule, TestModule
+]
+
+
+// assemble imports list
+export const rootImports = [].concat(BrowserModule, AppRoutingModule, modules)
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	imports: rootImports,
+	declarations: [ AppComponent ],
+	exports: [ AppRoutingModule ],
+	bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {
+	static ModuleIndex: NgModule[] = modules
+}
